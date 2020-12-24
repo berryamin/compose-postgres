@@ -1,15 +1,21 @@
 version: '3.5'
 
+volumes:
+  postgres-data:
+    driver: local-persist
+    driver_opts:
+      mountpoint: /data/postgres
+
 services:
   postgres:
     container_name: postgres_container
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changer_le_mot_de_passe_POSTGRES_ici}
       PGDATA: /data/postgres
     volumes:
-       - postgres:/data/postgres
+       - postgres-data:/data/postgres
     ports:
       - "5432:5432"
     networks:
@@ -21,7 +27,7 @@ services:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-changer_le_mot_de_passe_PGADMIN_ici_}
     volumes:
        - pgadmin:/root/.pgadmin
     ports:
